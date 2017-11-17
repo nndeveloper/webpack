@@ -1,6 +1,7 @@
 var webpack = require("../../../");
 module.exports = ["fitting", "content-change"].map(type => ({
 	name: type,
+	mode: "production",
 	entry: "./index",
 	output: {
 		filename: "[chunkhash].js",

@@ -1,6 +1,7 @@
 var webpack = require("../../../");
 module.exports = [
 	{
+		mode: "production",
 		entry: {
 			vendor: "./vendor",
 			first: "./first",
@@ -21,6 +22,7 @@ module.exports = [
 		}
 	},
 	{
+		mode: "production",
 		entry: {
 			vendor: "./vendor",
 			first: "./first",

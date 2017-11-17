@@ -11,6 +11,19 @@ const checkArrayExpectation = require("./checkArrayExpectation");
 const Stats = require("../lib/Stats");
 const webpack = require("../lib/webpack");
 
+const DEFAULT_OPTIMIZATIONS = {
+	removeAvailableModules: true,
+	removeEmptyChunks: true,
+	mergedDuplicateChunks: true,
+	flagIncludedChunks: true,
+	occurrenceOrder: true,
+	sideEffects: true,
+	providedExports: true,
+	usedExports: true,
+	concatenateModules: false,
+	namedModules: false,
+};
+
 describe("TestCases", () => {
 	const casesPath = path.join(__dirname, "cases");
 	let categories = fs.readdirSync(casesPath);
@@ -21,12 +34,10 @@ describe("TestCases", () => {
 		};
 	});
 	[{
-		name: "normal"
+		name: "normal",
 	}, {
-		name: "concat",
-		plugins: [
-			new webpack.optimize.ModuleConcatenationPlugin()
-		]
+		name: "production",
+		mode: "production"
 	}, {
 		name: "hot",
 		plugins: [
@@ -124,6 +135,8 @@ describe("TestCases", () => {
 								entry: "./" + category.name + "/" + testName + "/index",
 								target: "async-node",
 								devtool: config.devtool,
+								mode: config.mode || "none",
+								optimization: config.mode ? undefined : Object.assign({}, config.optimization, DEFAULT_OPTIMIZATIONS),
 								output: {
 									pathinfo: true,
 									path: outputDirectory,

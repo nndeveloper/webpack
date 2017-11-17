@@ -43,6 +43,7 @@ describe("ConfigTestCases", () => {
 					const optionsArr = [].concat(options);
 					optionsArr.forEach((options, idx) => {
 						if(!options.context) options.context = testDirectory;
+						if(!options.mode) options.mode = "production";
 						if(!options.entry) options.entry = "./index.js";
 						if(!options.target) options.target = "async-node";
 						if(!options.output) options.output = {};
